@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cmail</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header class="top-bar">
+        <div class="top-bar-left">
+            <button class="menu-btn" id="menu-btn" title="Main menu">
+                <span class="material-icons-outlined">menu</span>
+            </button>
+            <div class="brand">
+                <svg class="brand-icon" viewBox="0 0 75 75" width="40" height="40">
+                    <rect x="2" y="12" width="71" height="51" rx="6" fill="#EA4335"/>
+                    <path d="M5 16 L37.5 42 L70 16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 59 L28 38" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M70 59 L47 38" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+                <span class="brand-name">Cmail</span>
+            </div>
+        </div>
+        <div class="top-bar-center">
+            <div class="search-box">
+                <span class="material-icons-outlined search-icon">search</span>
+                <input type="text" id="search-input" placeholder="Search mail">
+                <button class="search-options-btn" title="Search options">
+                    <span class="material-icons-outlined">tune</span>
+                </button>
+            </div>
+        </div>
+        <div class="top-bar-right">
+            <button class="icon-btn" title="Settings"><span class="material-icons-outlined">settings</span></button>
+            <div class="profile-avatar" title="Account">U</div>
+        </div>
+    </header>
+
+    <div class="app-body">
+        <nav class="sidebar" id="sidebar">
+            <button class="compose-btn" id="compose-btn">
+                <span class="material-icons-outlined compose-icon">edit</span>
+                <span class="compose-label">Compose</span>
+            </button>
+            <ul class="folder-list">
+                <li class="active" data-folder="inbox" title="Inbox">
+                    <span class="material-icons-outlined folder-icon">inbox</span>
+                    <span class="folder-name">Inbox</span>
+                    <span class="folder-count" id="inbox-count"></span>
+                </li>
+                <li data-folder="spam" title="Spam">
+                    <span class="material-icons-outlined folder-icon">report</span>
+                    <span class="folder-name">Spam</span>
+                    <span class="folder-count folder-count-spam" id="spam-count"></span>
+                </li>
+                <li data-folder="sent" title="Sent">
+                    <span class="material-icons-outlined folder-icon">send</span>
+                    <span class="folder-name">Sent</span>
+                    <span class="folder-count" id="sent-count"></span>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="main-area">
+            <div class="list-toolbar" id="list-toolbar">
+                <div class="toolbar-left">
+                    <label class="checkbox-wrap"><input type="checkbox" id="select-all"></label>
+                    <button class="icon-btn-sm" title="Refresh" id="refresh-btn"><span class="material-icons-outlined">refresh</span></button>
+                    <button class="icon-btn-sm" title="More"><span class="material-icons-outlined">more_vert</span></button>
+                </div>
+                <div class="toolbar-right">
+                    <span class="page-info" id="page-info"></span>
+                </div>
+            </div>
+            <div class="email-list" id="email-list"></div>
+            <div class="email-detail" id="email-detail" style="display:none;">
+                <div class="detail-toolbar" id="detail-toolbar">
+                    <button class="icon-btn-sm" id="back-btn" title="Back"><span class="material-icons-outlined">arrow_back</span></button>
+                    <button class="icon-btn-sm" title="Archive"><span class="material-icons-outlined">archive</span></button>
+                    <button class="icon-btn-sm" title="Report spam"><span class="material-icons-outlined">report</span></button>
+                    <button class="icon-btn-sm" title="Delete"><span class="material-icons-outlined">delete</span></button>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-subject-row">
+                        <h2 id="detail-subject"></h2>
+                        <span class="detail-folder-label" id="detail-folder-label">Inbox</span>
+                    </div>
+                    <div class="detail-sender-row">
+                        <div class="detail-avatar" id="detail-avatar">A</div>
+                        <div class="detail-sender-info">
+                            <div class="detail-sender-line">
+                                <strong id="detail-sender-name"></strong>
+                                <span class="detail-sender-email" id="detail-sender-email"></span>
+                            </div>
+                            <span class="detail-to">to me</span>
+                        </div>
+                        <span class="detail-date" id="detail-date"></span>
+                    </div>
+                    <div class="detail-body" id="detail-body"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- COMPOSE WINDOW -->
+    <div class="compose-window" id="compose-window">
+        <div class="cw-header">
+            <span class="cw-header-title">New Message</span>
+            <div class="cw-header-btns">
+                <button class="cw-hdr-btn" id="compose-minimize" title="Minimize"><span class="material-icons-outlined">minimize</span></button>
+                <button class="cw-hdr-btn" id="compose-fullscreen" title="Full screen"><span class="material-icons-outlined">open_in_full</span></button>
+                <button class="cw-hdr-btn" id="compose-close" title="Close"><span class="material-icons-outlined">close</span></button>
+            </div>
+        </div>
+        <div class="cw-fields">
+            <div class="cw-field-row">
+                <span class="cw-field-label">To</span>
+                <div class="cw-field-input-area"><span class="cw-chip">me</span></div>
+                <span class="cw-cc-bcc">Cc Bcc</span>
+            </div>
+            <div class="cw-field-row">
+                <span class="cw-field-label">From</span>
+                <input class="cw-field-input" type="text" id="compose-from" placeholder="sender@example.com">
+            </div>
+            <div class="cw-field-row cw-field-row-last">
+                <span class="cw-field-label">Subject</span>
+                <input class="cw-field-input" type="text" id="compose-subject" placeholder="">
+            </div>
+        </div>
+        <div class="cw-body">
+            <textarea id="compose-message"></textarea>
+        </div>
+        <!-- Bottom bar -->
+        <div class="cw-action-bar">
+            <div class="cw-send-group">
+                <button class="cw-send-btn" id="send-btn">Send</button>
+                <button class="cw-send-dropdown"><span class="material-icons">arrow_drop_down</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="snackbar" id="snackbar"><span id="snackbar-text"></span></div>
+    <script src="app.js"></script>
+</body>
+</html>
